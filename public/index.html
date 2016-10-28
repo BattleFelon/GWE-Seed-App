@@ -1,0 +1,66 @@
+
+<html>
+	<head>
+		<meta charset=utf-8/>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>GWE Seed App</title>
+		<script language="javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+		<script language="javascript" src="blarg.js"></script>
+		<link href="style.css" rel="stylesheet" title="Default Style">
+	</head>
+
+	<body>
+
+	<div class="card" style="float:center; width:50%;">
+		<img src="images/multitech.png" alt="GateWay" style="width:100%">
+
+		<ul class="topnav" id="myTopnav">
+		  <li><a type ="button" onclick="showDeviceInfo()">Device Info</a></li>
+		  <li><a type ="button" onclick="showEngineReport()">Engine Report</a></li>
+		  <li><a type ="button" onclick="showUsageReport()">Usage Report</a></li>
+		  <li><a type ="button" onclick="showDataView()">Data View</a></li>
+		</ul>
+
+		<div class="container" id="device_info">
+			<h2 id="ipaddrs"><b>Updating...</b></h2>
+			<h4><b>User Name</b></h4>
+			<p id="uname">Updating...</p>
+			<h4><b>Disk Free</b></h4>
+			<p id="disk_free">Updating...</p>
+			<h4><b>Free</b></h4>
+			<p id="free">Updating...</p>
+		</div>
+
+		<div class="container" id="engine_report" display="none">
+			<h2 id="ipaddrs"><b>Updating...</b></h2>
+			<h4><b>User Name</b></h4>
+			<p id="uname">Updating...</p>
+			<h4><b>Disk Free</b></h4>
+			<p id="disk_free">Updating...</p>
+			<h4><b>Free</b></h4>
+			<p id="free">Updating...</p>
+		</div>
+
+		<div class="container" id="usage_report" display="none">
+			<h2><b>Usage Report</b></h2>
+		</div>
+
+		<div class="container" id="data_view" display="none">
+			<h2><b>Data View</b></h2>
+		</div>
+		
+	</div>
+   </body> 
+
+	<script type="text/javascript">
+	<!--
+		updateUserName();
+		updateDiskFree();
+		updateIPAddress();
+		updateFree();
+		showDeviceInfo();
+
+	//-->
+	</script>
+</html>
+

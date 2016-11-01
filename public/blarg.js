@@ -1,9 +1,9 @@
 //Base URL should be changed to your URL
 var base_url = "https://thegwe.apps.exosite.io"
 
-function updateUserName()
+//Get the data from device info and assign it to the id of the HTML Elements
+function updateDeviceInfo()
 {
-
 	var url = base_url.concat("/device_info");
 
 	$(document).ready(function() {
@@ -13,65 +13,23 @@ function updateUserName()
 		})	
 		.then(response => {
 			var data = JSON.parse(response[0].value);
+
 			document.getElementById("uname").innerHTML = data.uname;
-		})
-	});
-}
-
-function updateDiskFree()
-{
-
-	var url = base_url.concat("/device_info");
-
-	$(document).ready(function() {
-		$.ajax({
-			url: url,
-			type: "GET"
-		})	
-		.then(response => {
-			var data = JSON.parse(response[0].value);
 			document.getElementById("disk_free").innerHTML = data.df;
-		})
-	});
-}
-
-function updateIPAddress()
-{
-
-	var url = base_url.concat("/device_info");
-
-	$(document).ready(function() {
-		$.ajax({
-			url: url,
-			type: "GET"
-		})	
-		.then(response => {
-			var data = JSON.parse(response[0].value);
-			document.getElementById("ipaddrs").innerHTML = data.ipaddrs;
-		})
-	});
-}
-
-function updateFree()
-{
-
-	var url = base_url.concat("/device_info");
-
-	$(document).ready(function() {
-		$.ajax({
-			url: url,
-			type: "GET"
-		})	
-		.then(response => {
-			var data = JSON.parse(response[0].value);
 			document.getElementById("free").innerHTML = data.free;
+
+			//This is an array becasue it is on several elements
+			var elements = document.getElementsByClassName("ipaddrs");
+			for(var i = 0; i < elements.length; i++){
+		   		elements[i].innerHTML=data.ipaddrs;    // Change the content
+		    }
+
 		})
 	});
 }
 
-function updateApps()
+function updateEngineReport()
 {
-
 	var url = base_url.concat("/engine_report");
 
 	$(document).ready(function() {
@@ -80,10 +38,19 @@ function updateApps()
 			type: "GET"
 		})	
 		.then(response => {
-			var data = JSON.parse(response[0].value);
-			document.getElementById("apps").innerHTML = data.apps;
+			//var data = JSON.parse(response[0].value);
+			//document.getElementById("apps").innerHTML = data.apps;
+			var key;
+			var value;
+			//JSON.parse(response[0].value,key,value);
+			//document.write(data.apps[0].key);
 		})
 	});
+}
+
+function updateUsageReport()
+{
+
 }
 
 function showDeviceInfo() {
@@ -113,3 +80,24 @@ function showDataView() {
 	document.getElementById("usage_report").style.display = "none";
 	document.getElementById("data_view").style.display = "block";
 }
+
+function drawChart() {
+
+    var data = google.visualization.arrayToDataTable([
+      ['Year', 'Sales'],
+      ['2004',  1000],
+      ['2005',  1170],
+      ['2006',  660],
+      ['2007',  1030]
+    ]);
+
+    var options = {
+      title: 'Test Data',
+      curveType: 'function',
+      legend: { position: 'bottom' }
+    };
+
+    var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+
+    chart.draw(data, options);
+    }

@@ -18,9 +18,13 @@ function updateDeviceInfo()
 		.then(response => {
 			var data = JSON.parse(response[0].value);
 
-			document.getElementById("uname").innerHTML = data.uname;
-			document.getElementById("disk_free").innerHTML = data.df;
-			document.getElementById("free").innerHTML = data.free;
+			var uname = data.uname.replace(/(\r\n|\n|\r)/gm, "<br>");
+			var disk_free = data.df.replace(/(\r\n|\n|\r)/gm, "<br>");
+			var free = data.free.replace(/(\r\n|\n|\r)/gm, "<br>");
+
+			document.getElementById("uname").innerHTML = uname;
+			document.getElementById("disk_free").innerHTML =  disk_free;
+			document.getElementById("free").innerHTML = free;
 
 			//This is an array becasue it is on several elements
 			var elements = document.getElementsByClassName("ipaddrs");
@@ -84,6 +88,7 @@ function updateUsageReport()
 	});
 }
 
+//Grabs the test data from Murano to update the graph
 function updateGraph()
 {
 		var url = base_url.concat("/test_data");
@@ -100,14 +105,17 @@ function updateGraph()
 			var point = [current_time.toString(), parseInt(response[0].value)];
 
 			test_data.push(point);
-			if(test_data.length > 100){
-				test_data.shift();
+
+			//Removes the first elements when the array becomes size 50
+			if(test_data.length > 50){
+				test_data.splice(1,1);
 			}
 
 		})
 	});
 }
 
+//Controls the index page view
 function showDeviceInfo() {
 	document.getElementById("device_info").style.display = "block";
 	document.getElementById("engine_report").style.display = "none";
@@ -136,6 +144,7 @@ function showDataView() {
 	document.getElementById("data_view").style.display = "block";
 }
 
+//Draws the linehcat of the test data
 function drawChart() {
 
 	updateGraph();
@@ -147,7 +156,7 @@ function drawChart() {
       legend: { position: 'bottom' }
     };
 
-    var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+    var chart = new google.visualization.LineChart(document.getElementById('line'));
 
     chart.draw(data, options);
 

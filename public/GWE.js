@@ -18,9 +18,10 @@ function updateDeviceInfo()
 		.then(response => {
 			var data = JSON.parse(response[0].value);
 
-			var uname = data.uname.replace(/(\r\n|\n|\r)/gm, "<br>");
-			var disk_free = data.df.replace(/(\r\n|\n|\r)/gm, "<br>");
-			var free = data.free.replace(/(\r\n|\n|\r)/gm, "<br>");
+			//Format for display
+			var uname = "<pre>" + data.uname + "</pre>";
+			var disk_free = "<pre>" + data.df + "</pre>";
+			var free = "<pre>" + data.free + "</pre>";
 
 			document.getElementById("uname").innerHTML = uname;
 			document.getElementById("disk_free").innerHTML =  disk_free;

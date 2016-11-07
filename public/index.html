@@ -1,18 +1,22 @@
 
+
+
 <html>
 	<head>
 		<meta charset=utf-8/>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>GWE Seed App</title>
-		<script language="javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-		<script language="javascript" src="blarg.js"></script>
+		<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+		<script type="text/javascript" src="GWE.js"></script>
 		<link href="style.css" rel="stylesheet" title="Default Style">
 	</head>
 
 	<body>
 
 	<div class="card" style="float:center; width:50%;">
-		<img src="images/multitech.png" alt="GateWay" style="width:100%">
+		<img src="images/pi.png" alt="GateWay" style="width:13%; display: inline-block;"></img>
+		<img src="images/exosite.png" alt="Logo" style="width:50%"></img>
 
 		<ul class="topnav" id="myTopnav">
 		  <li><a type ="button" onclick="showDeviceInfo()">Device Info</a></li>
@@ -22,43 +26,53 @@
 		</ul>
 
 		<div class="container" id="device_info">
-			<h2 id="ipaddrs"><b>Updating...</b></h2>
+			<h2 class="ipaddrs"></b></h2>
+			<h3><b>Device Info</b></h3>
 			<h4><b>User Name</b></h4>
-			<p id="uname">Updating...</p>
+			<p id="uname"></p>
 			<h4><b>Disk Free</b></h4>
-			<p id="disk_free">Updating...</p>
+			<p id="disk_free"></p>
 			<h4><b>Free</b></h4>
-			<p id="free">Updating...</p>
+			<p id="free"></p>
 		</div>
 
 		<div class="container" id="engine_report" display="none">
-			<h2 id="ipaddrs"><b>Updating...</b></h2>
-			<h4><b>User Name</b></h4>
-			<p id="uname">Updating...</p>
-			<h4><b>Disk Free</b></h4>
-			<p id="disk_free">Updating...</p>
-			<h4><b>Free</b></h4>
-			<p id="free">Updating...</p>
+			<h2 class="ipaddrs"><b></b></h2>
+			<h3><b>Engine Report</b></h3>
+			<h4><b>GWE App Status</b></h4>
+			<p id="apps"></p>
+
 		</div>
 
 		<div class="container" id="usage_report" display="none">
-			<h2><b>Usage Report</b></h2>
+			<h2 class="ipaddrs"><b></b></h2>
+			<h3><b>Usage Report</b></h3>
 		</div>
 
 		<div class="container" id="data_view" display="none">
-			<h2><b>Data View</b></h2>
+			<h2 class="ipaddrs"><b></b></h2>
+			<h3><b>Data View</b></h3>
+			<div id="curve_chart"></div>
 		</div>
-		
+
 	</div>
    </body> 
 
 	<script type="text/javascript">
 	<!--
-		updateUserName();
-		updateDiskFree();
-		updateIPAddress();
-		updateFree();
+		//load in google chart capability
+		google.charts.load('current', {'packages':['corechart']});
+	  	google.charts.setOnLoadCallback(drawChart);
+
+		//Update all the data
+		drawChart();
+		updateDeviceInfo();
+		updateEngineReport();
+		updateUsageReport();
 		showDeviceInfo();
+
+
+
 
 	//-->
 	</script>

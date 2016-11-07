@@ -17,7 +17,8 @@
 	<body>
 
 	<div class="card" style="float:center; width:70%;">
-		<img src="images/pi.png" alt="GateWay" style="width:13%; display: inline-block;"></img>
+		<img src="images/logo.png" alt="GateWay" style="width:13%; display: inline-block;"></img>
+		<h2 style="display:inline-block;"> <- Your Logo Here </h2>
 		<img src="images/exosite.png" alt="Logo" style="width:50%"></img>
 
 		<ul class="topnav" id="myTopnav">
@@ -31,24 +32,26 @@
 			<h2 class="ipaddrs"></b></h2>
 			<h3><b>Device Info</b></h3>
 			<h4><b>System Information</b></h4>
-			<p id="uname"></p>
+			<p class="data" id="uname"></p>
 			<h4><b>Disk Free</b></h4>
-			<p id="disk_free"></p>
+			<p class="data" id="disk_free"></p>
 			<h4><b>Free</b></h4>
-			<p id="free"></p>
+			<p class="data" id="free"></p>
 		</div>
 
 		<div class="container" id="engine_report" display="none">
 			<h2 class="ipaddrs"><b></b></h2>
 			<h3><b>Engine Report</b></h3>
 			<h4><b>GWE App Status</b></h4>
-			<p id="apps"></p>
+			<p class="data" id="apps"></p>
 
 		</div>
 
 		<div class="container" id="usage_report" display="none">
 			<h2 class="ipaddrs"><b></b></h2>
 			<h3><b>Usage Report</b></h3>
+			<p class="data" id="usage"></p>
+
 		</div>
 
 		<div class="container" id="data_view" display="none">

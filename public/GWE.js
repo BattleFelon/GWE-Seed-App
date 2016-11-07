@@ -50,16 +50,41 @@ function updateEngineReport()
 			var data = JSON.parse(response[0].value);
 			var data_array = data.apps;
 
-			var header = "<p> Program Name, Exit Status, Status, Uptime, Version\n </p>";
+			//var to hold name values
+			var keys = [];
+			//Header to display
+			var header = "<table><tr><b><th>Program Name</th><th>Exit Status</th><th>Status</th><th>Uptime</th><th>Version</th></b></tr>";
+			//var to hold data values
+			var values = [];
 
+			for(i = 0; i < data.apps.length; ++i){
 
-			var gmq = "<p>GMQ " + data_array[0].gmq.exitstatus + ", " + data_array[0].gmq.status + ", " + data_array[0].gmq.uptime + ", " + data_array[0].gmq.version + "\n</p>";
-			var gmq_demo = "<p>GMQ_Demo " + data_array[1].gmq_demo.exitstatus + ", " + data_array[1].gmq_demo.status + ", " + data_array[1].gmq_demo.uptime + ", " + data_array[1].gmq_demo.version + "\n</p>";
-			var gwe = "<p>GWE " + data_array[2].gwe.exitstatus + ", " + data_array[2].gwe.status + ", " + data_array[2].gwe.uptime + ", " + data_array[2].gwe.version + "\n</p>";
+				for(var key in data.apps[i]){
+					var value = [];
 
+					keys.push(key);
+					value.push(data.apps[i][key].exitstatus);
+					value.push(data.apps[i][key].status);
+					value.push(data.apps[i][key].uptime);
+					value.push(data.apps[i][key].version);
 
-			var string_to_write = header + gmq + gmq_demo + gwe;
+					values.push(value);
+				}
+			}
 
+			//Push values to document
+			var string_to_write = header
+			for(i = 0; i < keys.length; ++i){
+				string_to_write += "<tr><b><td>" + keys[i] + "</td></b>";
+				
+				for(j = 0; j < values[i].length; ++j){
+						string_to_write += "<td>" + values[i][j] + "</td>";
+				}
+
+				string_to_write += "</tr>";
+			}
+
+			string_to_write += "</table>";
 			document.getElementById("apps").innerHTML = string_to_write;
 
 		})
@@ -79,14 +104,63 @@ function updateUsageReport()
 
 			var data = JSON.parse(response[0].value);
 
-			for(var key in data.eth0){
-				//console.log(key);
-				//console.log(data.eth0[key]);
+			//var to hold name values
+			var keys = [];
+			//var to hold key values
+			var header = "<table><tr><b><th>Method	</th><th>Total RX</th><th>MaxRX</th><th>Total TX</th><th>Max TX</th><th>Number of Requests</th></b></tr>"
+			//var to hold data values
+			var values = [];
 
+			//Process the data for display
+			for(var key1 in data){
+				var line = data[key1];
+
+				//Check to make sure the interface is used
+				if(line.top_consumer != ""){
+					for(key2 in line){
+						
+						var line2 = line[key2];
+						for(key3 in line2){
+							var value = [];
+							if(key3.length > 2){
+								keys.push(key3);
+
+								//Add values to array
+								value.push(line2[key3].tot_rx);
+								value.push(line2[key3].max_rx);
+								value.push(line2[key3].tot_tx);
+								value.push(line2[key3].max_tx);
+								value.push(line2[key3].num);
+
+								values.push(value);
+							}
+						}
+					}
+				}
 			}
+
+			//Push values to document
+			var string_to_write = header
+			for(i = 0; i < keys.length; ++i){
+				string_to_write += "<tr><b><td>" + keys[i] + "</td></b>";
+				
+				for(j = 0; j < values[i].length; ++j){
+						string_to_write += "<td>" + values[i][j] + "</td>";
+				}
+
+				string_to_write += "</tr>";
+			}
+
+			string_to_write += "</table>";
+			console.log(string_to_write);
+
+			document.getElementById("usage").innerHTML = string_to_write;
+			
 		})
 	});
 }
+
+
 
 //Grabs the test data from Murano to update the graph
 function updateGraph()
@@ -102,6 +176,7 @@ function updateGraph()
 
 			var current_time = new Date();
 
+			//Create a datapoint from the data
 			var point = [current_time.toString(), parseInt(response[0].value)];
 
 			test_data.push(point);

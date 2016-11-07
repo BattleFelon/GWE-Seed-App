@@ -10,3 +10,7 @@ response.code = 201 response.message = {result} response.headers["x-my-custom-he
 --#ENDPOINT GET /engine_report
 local result = Keystore.get({ key = "engine_report" })
 response.code = 201 response.message = {result} response.headers["x-my-custom-header"] = "my header content"
+
+--#ENDPOINT GET /test_data
+local result = Keystore.get({ key = "test" })
+response.code = 201 response.message = {result} response.headers["x-my-custom-header"] = "my header content"

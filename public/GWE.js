@@ -1,6 +1,10 @@
 //Base URL should be changed to your URL
 var base_url = "https://thegwe.apps.exosite.io"
 
+//Test Data graph information
+var test_data = [];
+test_data.push(['Time', 'Data']);
+
 //Get the data from device info and assign it to the id of the HTML Elements
 function updateDeviceInfo()
 {
@@ -72,10 +76,34 @@ function updateUsageReport()
 			var data = JSON.parse(response[0].value);
 
 			for(var key in data.eth0){
-				console.log(key);
-				console.log(data.eth0[key]);
+				//console.log(key);
+				//console.log(data.eth0[key]);
 
 			}
+		})
+	});
+}
+
+function updateGraph()
+{
+		var url = base_url.concat("/test_data");
+
+	$(document).ready(function() {
+		$.ajax({
+			url: url,
+			type: "GET"
+		})	
+		.then(response => {
+
+			var current_time = new Date();
+
+			var point = [current_time.toString(), parseInt(response[0].value)];
+
+			test_data.push(point);
+			if(test_data.length > 100){
+				test_data.shift();
+			}
+
 		})
 	});
 }
@@ -109,5 +137,18 @@ function showDataView() {
 }
 
 function drawChart() {
+
+	updateGraph();
+
+    var data = google.visualization.arrayToDataTable(test_data);
+
+    var options = {
+      title: 'Test Data',
+      legend: { position: 'bottom' }
+    };
+
+    var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+
+    chart.draw(data, options);
 
 }

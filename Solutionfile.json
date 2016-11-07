@@ -1,1 +1,1 @@
-{"routes": "sample_api.lua", "version": "0.3", "default_page": "index.html", "assets": "public", "cors": {"origin": ["http://localhost:*", "https://thegwe.apps.exosite.io"]}}
+{"routes": "sample_api.lua", "version": "0.3", "default_page": "index.html", "modules": {"tsw": "modules/TSQ/tsw.lua", "tsq": "modules/TSQ/tsq.lua"}, "assets": "public", "cors": {"origin": ["http://localhost:*", "https://thegwe.apps.exosite.io"]}}

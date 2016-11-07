@@ -38,19 +38,46 @@ function updateEngineReport()
 			type: "GET"
 		})	
 		.then(response => {
-			//var data = JSON.parse(response[0].value);
-			//document.getElementById("apps").innerHTML = data.apps;
-			var key;
-			var value;
-			//JSON.parse(response[0].value,key,value);
-			//document.write(data.apps[0].key);
+
+			var data = JSON.parse(response[0].value);
+			var data_array = data.apps;
+
+			var header = "<p> Program Name, Exit Status, Status, Uptime, Version\n </p>";
+
+
+			var gmq = "<p>GMQ " + data_array[0].gmq.exitstatus + ", " + data_array[0].gmq.status + ", " + data_array[0].gmq.uptime + ", " + data_array[0].gmq.version + "\n</p>";
+			var gmq_demo = "<p>GMQ_Demo " + data_array[1].gmq_demo.exitstatus + ", " + data_array[1].gmq_demo.status + ", " + data_array[1].gmq_demo.uptime + ", " + data_array[1].gmq_demo.version + "\n</p>";
+			var gwe = "<p>GWE " + data_array[2].gwe.exitstatus + ", " + data_array[2].gwe.status + ", " + data_array[2].gwe.uptime + ", " + data_array[2].gwe.version + "\n</p>";
+
+
+			var string_to_write = header + gmq + gmq_demo + gwe;
+
+			document.getElementById("apps").innerHTML = string_to_write;
+
 		})
 	});
 }
 
 function updateUsageReport()
 {
+		var url = base_url.concat("/usage_report");
 
+	$(document).ready(function() {
+		$.ajax({
+			url: url,
+			type: "GET"
+		})	
+		.then(response => {
+
+			var data = JSON.parse(response[0].value);
+
+			for(var key in data.eth0){
+				console.log(key);
+				console.log(data.eth0[key]);
+
+			}
+		})
+	});
 }
 
 function showDeviceInfo() {
@@ -83,21 +110,4 @@ function showDataView() {
 
 function drawChart() {
 
-    var data = google.visualization.arrayToDataTable([
-      ['Year', 'Sales'],
-      ['2004',  1000],
-      ['2005',  1170],
-      ['2006',  660],
-      ['2007',  1030]
-    ]);
-
-    var options = {
-      title: 'Test Data',
-      curveType: 'function',
-      legend: { position: 'bottom' }
-    };
-
-    var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
-
-    chart.draw(data, options);
-    }
+}

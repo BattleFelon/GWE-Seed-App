@@ -18,6 +18,7 @@ function updateDeviceInfo()
 		.then(response => {
 			var data = JSON.parse(response[0].value);
 
+			console.log(data);
 			//Format for display
 			var uname = "<pre>" + data.uname + "</pre>";
 			var disk_free = "<pre>" + data.df + "</pre>";
@@ -49,6 +50,7 @@ function updateEngineReport()
 		.then(response => {
 
 			var data = JSON.parse(response[0].value);
+			console.log(data);
 			var data_array = data.apps;
 
 			//var to hold name values
@@ -104,6 +106,7 @@ function updateUsageReport()
 		.then(response => {
 
 			var data = JSON.parse(response[0].value);
+			console.log(data);
 
 			//var to hold name values
 			var keys = [];
@@ -153,7 +156,6 @@ function updateUsageReport()
 			}
 
 			string_to_write += "</table>";
-			console.log(string_to_write);
 
 			document.getElementById("usage").innerHTML = string_to_write;
 			
